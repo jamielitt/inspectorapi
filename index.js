@@ -8,7 +8,7 @@ server.get('/', (req, res) => {
 })
 
 server.get('/helloworld', (req, res) => {
-    res.send('This is the About Us page')
+    res.send('Hello World - first initial dev')
 })
 
 server.listen(4040, () => {
