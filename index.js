@@ -1,6 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser')
 
+// Is there a equivanent in Express to make outbound calls????
+const https = require('https')
+
 const server = express();
 var jsonParser = bodyParser.json();
 
@@ -20,11 +23,10 @@ server.post('/inspecturls', jsonParser, (req, res) => {
     // Convert boduy to JSON
     var inspector = req.body;
 
-    // Output the urls to console window for now just to confirm they've been received
-    inspector.urls.forEach(element => {
-        console.log(element)
-    });
+    // Invoke function to get url for every url we have been given
+    inspector.urls.forEach(getUrl);
 
+    // All OK, report back
     res.sendStatus(200);
 })
 
@@ -32,3 +34,27 @@ server.post('/inspecturls', jsonParser, (req, res) => {
 server.listen(4040, () => {
     console.log('Express server started...')
 })
+
+// Function to get status code for given url
+function getStatusCode(url)
+{
+    return new Promise( () => {
+        console.log('Making https request to ' + url);
+        
+        // Get the url and log the status code
+        https.get(url, (result) => {
+            var message = "Status code for " + url + " is " + result.statusCode;
+            console.log(message);
+        });
+    });
+}
+
+// Callback function for the above forEach //
+function getUrl(value)
+{
+    // Get url and log output to console
+    getStatusCode(value)
+        .then(data => {
+            console.log(data.length);
+        });
+};
