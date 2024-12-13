@@ -19,12 +19,8 @@ server.post('/inspecturls', jsonParser, (req, res) => {
     
     // Convert boduy to JSON
     var inspector = req.body;
-    console.log("JSON input parsed into an object");
 
-    // Output to console window for now, we will do something different with it later
-    console.log(JSON.stringify(inspector));
-    res.send('JSON should have been output to console window');
-
+    // Output the urls to console window for now just to confirm they've been received
     inspector.urls.forEach(element => {
         console.log(element)
     });
