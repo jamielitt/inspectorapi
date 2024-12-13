@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser')
+const {getUrl} = require('./modules/statusCodeRetriever')
 
 const server = express();
 var jsonParser = bodyParser.json();
@@ -20,11 +21,10 @@ server.post('/inspecturls', jsonParser, (req, res) => {
     // Convert boduy to JSON
     var inspector = req.body;
 
-    // Output the urls to console window for now just to confirm they've been received
-    inspector.urls.forEach(element => {
-        console.log(element)
-    });
+    // Invoke function to get url for every url we have been given
+    inspector.urls.forEach(getUrl);
 
+    // All OK, report back
     res.sendStatus(200);
 })
 
