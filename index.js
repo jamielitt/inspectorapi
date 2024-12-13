@@ -24,6 +24,8 @@ server.post('/inspecturls', jsonParser, (req, res) => {
     inspector.urls.forEach(element => {
         console.log(element)
     });
+
+    res.sendStatus(200);
 })
 
 // Start the webserver, listening on port 4040 (may change later)
